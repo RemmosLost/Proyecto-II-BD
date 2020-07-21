@@ -1,0 +1,35 @@
+CREATE TABLE `per`.`payment_method` (
+  `id_payment_method` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(25) NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(25) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(25) NULL,
+  PRIMARY KEY (`id_payment_method`),
+  UNIQUE INDEX `id_payment_method_UNIQUE` (`id_payment_method` ASC) VISIBLE)
+COMMENT = 'Table that stores payment method information.';
+DROP TRIGGER IF EXISTS `per`.`payment_method_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`payment_method_BEFORE_INSERT` BEFORE INSERT ON `payment_method` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`payment_method_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`payment_method_BEFORE_UPDATE` BEFORE UPDATE ON `payment_method` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

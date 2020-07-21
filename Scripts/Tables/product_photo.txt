@@ -1,0 +1,34 @@
+CREATE TABLE `per`.`product_photo` (
+  `id_product_photo` INT NOT NULL AUTO_INCREMENT,
+  `photograph` MEDIUMBLOB NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(25) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(25) NULL,
+  PRIMARY KEY (`id_product_photo`),
+  UNIQUE INDEX `id_product_photo_UNIQUE` (`id_product_photo` ASC) VISIBLE)
+COMMENT = 'Table that stores the information of the product photo.';
+DROP TRIGGER IF EXISTS `per`.`product_photo_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`product_photo_BEFORE_INSERT` BEFORE INSERT ON `product_photo` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`product_photo_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`product_photo_BEFORE_UPDATE` BEFORE UPDATE ON `product_photo` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

@@ -1,0 +1,39 @@
+CREATE TABLE `per`.`gender` (
+  `id_gender` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(25) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(25) NULL,
+  PRIMARY KEY (`id_gender`),
+  UNIQUE INDEX `id_gender_UNIQUE` (`id_gender` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+COMMENT = 'Table that stores gender information.';
+DROP TRIGGER IF EXISTS `per`.`gender_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`gender_BEFORE_INSERT` BEFORE INSERT ON `gender` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`gender_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`gender_BEFORE_UPDATE` BEFORE UPDATE ON `gender` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;
+
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();

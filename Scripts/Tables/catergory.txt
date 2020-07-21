@@ -1,0 +1,40 @@
+CREATE TABLE `per`.`catergory` (
+  `id_catergory` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `id_product` INT NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_catergory`),
+  UNIQUE INDEX `id_catergory_UNIQUE` (`id_catergory` ASC) VISIBLE,
+  CONSTRAINT `fk_category_product`
+    FOREIGN KEY (`id_catergory`)
+    REFERENCES `per`.`product` (`id_product`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores information about product categories.';
+DROP TRIGGER IF EXISTS `per`.`catergory_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`catergory_BEFORE_INSERT` BEFORE INSERT ON `catergory` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`catergory_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`catergory_BEFORE_UPDATE` BEFORE UPDATE ON `catergory` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

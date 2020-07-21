@@ -1,0 +1,50 @@
+CREATE TABLE `per`.`product` (
+  `id_product` INT NOT NULL AUTO_INCREMENT,
+  `price` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `descripcion` VARCHAR(45) NOT NULL,
+  ` id_product_photo` INT NOT NULL,
+  ` id_favorite` INT NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_product`),
+  UNIQUE INDEX `id_product_UNIQUE` (`id_product` ASC) VISIBLE,
+  INDEX `fk_product_photo_idx` (` id_product_photo` ASC) VISIBLE,
+  INDEX `fk_product_favorite_idx` (` id_favorite` ASC) VISIBLE,
+  CONSTRAINT `fk_product_photo`
+    FOREIGN KEY (` id_product_photo`)
+    REFERENCES `per`.`product_photo` (`id_product_photo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_product_favorite`
+    FOREIGN KEY (` id_favorite`)
+    REFERENCES `per`.`favorite` (`id_favorite`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores product information.';
+DROP TRIGGER IF EXISTS `per`.`product_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`product_BEFORE_INSERT` BEFORE INSERT ON `product` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`product_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`product_BEFORE_UPDATE` BEFORE UPDATE ON `product` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

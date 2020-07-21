@@ -1,0 +1,32 @@
+CREATE TABLE `per`.`purhcase_history` (
+  `id_purhcase_history` INT NOT NULL AUTO_INCREMENT,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_purhcase_history`),
+  UNIQUE INDEX `id_purhcase_history_UNIQUE` (`id_purhcase_history` ASC) VISIBLE);
+DROP TRIGGER IF EXISTS `per`.`purhcase_history_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`purhcase_history_BEFORE_INSERT` BEFORE INSERT ON `purhcase_history` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`purhcase_history_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`purhcase_history_BEFORE_UPDATE` BEFORE UPDATE ON `purhcase_history` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

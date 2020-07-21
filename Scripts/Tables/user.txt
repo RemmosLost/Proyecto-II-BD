@@ -1,0 +1,41 @@
+CREATE TABLE `per`.`user` (
+  `username` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(2) NOT NULL,
+  `id_type_user` INT NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`username`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
+  INDEX `fk_user_type_user_idx` (`id_type_user` ASC) VISIBLE,
+  CONSTRAINT `fk_user_type_user`
+    FOREIGN KEY (`id_type_user`)
+    REFERENCES `per`.`type_user` (`id_type_user`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores user information.';
+DROP TRIGGER IF EXISTS `per`.`user_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`user_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`user_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`user_BEFORE_UPDATE` BEFORE UPDATE ON `user` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

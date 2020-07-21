@@ -1,0 +1,36 @@
+CREATE TABLE `per`.`type_shipping` (
+  `id_shipping` INT NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(25) NOT NULL,
+  `creation_date` VARCHAR(45) NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` VARCHAR(45) NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_shipping`),
+  UNIQUE INDEX `id_shipping_UNIQUE` (`id_shipping` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+COMMENT = 'Table that stores the shipping type information.';
+DROP TRIGGER IF EXISTS `per`.`type_shipping_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`type_shipping_BEFORE_INSERT` BEFORE INSERT ON `type_shipping` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`type_shipping_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`type_shipping_BEFORE_UPDATE` BEFORE UPDATE ON `type_shipping` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

@@ -1,0 +1,63 @@
+CREATE TABLE `per`.`person` (
+  `id_person` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `middle_name` VARCHAR(45) NOT NULL,
+  `first_surname` VARCHAR(45) NOT NULL,
+  `second_surname` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `birth_of_date` DATE NOT NULL,
+  `direction` VARCHAR(45) NOT NULL,
+  ` id_nationality` INT NOT NULL,
+  `id_gender` INT NOT NULL,
+  `id_photo` INT NOT NULL,
+  `id_phone_numbre` INT NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_person`),
+  UNIQUE INDEX `id_person_UNIQUE` (`id_person` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `fk_id_nationality_idx` (` id_nationality` ASC) VISIBLE,
+  INDEX `fk_id_gender_idx` (`id_gender` ASC) VISIBLE,
+  INDEX `fk_id_photo_idx` (`id_photo` ASC) VISIBLE,
+  CONSTRAINT `fk_person_nationality`
+    FOREIGN KEY (` id_nationality`)
+    REFERENCES `per`.`nationality` (`id_nationality`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_person_gender`
+    FOREIGN KEY (`id_gender`)
+    REFERENCES `per`.`gender` (`id_gender`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_person_photo`
+    FOREIGN KEY (`id_photo`)
+    REFERENCES `per`.`photo` (`id_photo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores person information.';
+DROP TRIGGER IF EXISTS `per`.`person_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`person_BEFORE_INSERT` BEFORE INSERT ON `person` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`person_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`person_BEFORE_UPDATE` BEFORE UPDATE ON `person` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

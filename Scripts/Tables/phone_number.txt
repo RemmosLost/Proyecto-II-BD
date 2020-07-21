@@ -1,0 +1,41 @@
+CREATE TABLE `per`.`phone_number` (
+  `id_phone_number` INT NOT NULL AUTO_INCREMENT,
+  `number` INT NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  `id_person` INT NOT NULL,
+  PRIMARY KEY (`id_phone_number`),
+  UNIQUE INDEX `id_phone_number_UNIQUE` (`id_phone_number` ASC) VISIBLE,
+  INDEX `fk_id_person_idx` (`id_person` ASC) VISIBLE,
+  CONSTRAINT `fk_phone_number_person`
+    FOREIGN KEY (`id_person`)
+    REFERENCES `per`.`person` (`id_person`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores phones information.';
+DROP TRIGGER IF EXISTS `per`.`phone_number_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`phone_number_BEFORE_INSERT` BEFORE INSERT ON `phone_number` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`phone_number_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`phone_number_BEFORE_UPDATE` BEFORE UPDATE ON `phone_number` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

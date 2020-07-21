@@ -1,0 +1,34 @@
+CREATE TABLE `per`.`type_user` (
+  `id_type_user` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(25) NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(25) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(25) NULL,
+  PRIMARY KEY (`id_type_user`),
+  UNIQUE INDEX `id_type_user_UNIQUE` (`id_type_user` ASC) VISIBLE)
+COMMENT = 'Table that stores information about the types of users.';
+DROP TRIGGER IF EXISTS `per`.`type_user_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`type_user_BEFORE_INSERT` BEFORE INSERT ON `type_user` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`type_user_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`type_user_BEFORE_UPDATE` BEFORE UPDATE ON `type_user` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

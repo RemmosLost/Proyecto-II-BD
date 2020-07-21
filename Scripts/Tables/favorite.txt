@@ -1,0 +1,33 @@
+CREATE TABLE `per`.`favorite` (
+  `id_favorite` INT NOT NULL AUTO_INCREMENT,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(25) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(25) NULL,
+  PRIMARY KEY (`id_favorite`),
+  UNIQUE INDEX `id_favorite_UNIQUE` (`id_favorite` ASC) VISIBLE)
+COMMENT = 'Table that stores favorities  information.';
+DROP TRIGGER IF EXISTS `per`.`favorite_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`favorite_BEFORE_INSERT` BEFORE INSERT ON `favorite` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`favorite_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`favorite_BEFORE_UPDATE` BEFORE UPDATE ON `favorite` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;
