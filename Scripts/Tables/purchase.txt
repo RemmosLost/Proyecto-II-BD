@@ -1,0 +1,54 @@
+CREATE TABLE `per`.`purchase` (
+  `id_purchase` INT NOT NULL AUTO_INCREMENT,
+  `purchase_date` DATE NOT NULL,
+  `id_payment` INT NOT NULL,
+  `id_purchase_history` INT NOT NULL,
+  `id_review` INT NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_purchase`),
+  UNIQUE INDEX `id_purchase_UNIQUE` (`id_purchase` ASC) VISIBLE,
+  INDEX `fk_purchase_review_idx` (`id_review` ASC) VISIBLE,
+  INDEX `fk_purchase_purc_history_idx` (`id_purchase_history` ASC) VISIBLE,
+  CONSTRAINT `fk_purchase_payment`
+    FOREIGN KEY (`id_payment`)
+    REFERENCES `per`.`payment_method` (`id_payment_method`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_purchase_purc_history`
+    FOREIGN KEY (`id_purchase_history`)
+    REFERENCES `per`.`purhcase_history` (`id_purhcase_history`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_purchase_review`
+    FOREIGN KEY (`id_review`)
+    REFERENCES `per`.`review` (`id_review`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores purchase information.';
+DROP TRIGGER IF EXISTS `per`.`purchase_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`purchase_BEFORE_INSERT` BEFORE INSERT ON `purchase` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`purchase_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`purchase_BEFORE_UPDATE` BEFORE UPDATE ON `purchase` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

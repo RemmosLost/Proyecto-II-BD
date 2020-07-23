@@ -1,0 +1,55 @@
+CREATE TABLE `per`.`message` (
+  `id_message` INT NOT NULL AUTO_INCREMENT,
+  `text` VARCHAR(250) NOT NULL,
+  `id_user_recieve` VARCHAR(20) NOT NULL,
+  `id_user_send` VARCHAR(20) NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  `id_conversation` INT NOT NULL,
+  PRIMARY KEY (`id_message`),
+  UNIQUE INDEX `id_message_UNIQUE` (`id_message` ASC) VISIBLE,
+  INDEX `fk_message_convesation_idx` (`id_conversation` ASC) VISIBLE,
+  INDEX `fk_message_user_send_idx` (`id_user_send` ASC) VISIBLE,
+  INDEX `fk_message_user_recieve_idx` (`id_user_recieve` ASC) VISIBLE,
+  CONSTRAINT `fk_message_convesation`
+    FOREIGN KEY (`id_conversation`)
+    REFERENCES `per`.`conversation` (`id_conversation`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_message_user_send`
+    FOREIGN KEY (`id_user_send`)
+    REFERENCES `per`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_message_user_recieve`
+    FOREIGN KEY (`id_user_recieve`)
+    REFERENCES `per`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores message information.';
+DROP TRIGGER IF EXISTS `per`.`message_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`message_BEFORE_INSERT` BEFORE INSERT ON `message` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`message_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`message_BEFORE_UPDATE` BEFORE UPDATE ON `message` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

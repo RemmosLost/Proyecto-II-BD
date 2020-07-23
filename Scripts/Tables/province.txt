@@ -1,0 +1,41 @@
+CREATE TABLE `per`.`province` (
+  `id_province` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `id_country` INT NOT NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `creation_date` DATE NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_province`),
+  UNIQUE INDEX `id_province_UNIQUE` (`id_province` ASC) VISIBLE,
+  INDEX `fk_province_country_idx` (`id_country` ASC) VISIBLE,
+  CONSTRAINT `fk_province_country`
+    FOREIGN KEY (`id_country`)
+    REFERENCES `per`.`country` (`id_country`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores province information.';
+DROP TRIGGER IF EXISTS `per`.`province_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`province_BEFORE_INSERT` BEFORE INSERT ON `province` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`province_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`province_BEFORE_UPDATE` BEFORE UPDATE ON `province` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;

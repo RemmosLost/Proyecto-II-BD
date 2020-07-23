@@ -11,6 +11,7 @@ CREATE TABLE `per`.`person` (
   `id_gender` INT NOT NULL,
   `id_photo` INT NOT NULL,
   `id_phone_numbre` INT NOT NULL,
+  `id_district` INT NOT NULL,
   `creation_date` DATE NULL,
   `creation_user` VARCHAR(45) NULL,
   `last_update_date` DATE NULL,
@@ -35,7 +36,12 @@ CREATE TABLE `per`.`person` (
     FOREIGN KEY (`id_photo`)
     REFERENCES `per`.`photo` (`id_photo`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION),
+CONSTRAINT `fk_person_district`
+    FOREIGN KEY (` id_district`)
+    REFERENCES `per`.`district` (`id_district`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 COMMENT = 'Table that stores person information.';
 DROP TRIGGER IF EXISTS `per`.`person_BEFORE_INSERT`;
 

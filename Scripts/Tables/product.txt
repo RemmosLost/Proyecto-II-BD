@@ -5,6 +5,7 @@ CREATE TABLE `per`.`product` (
   `descripcion` VARCHAR(45) NOT NULL,
   ` id_product_photo` INT NOT NULL,
   ` id_favorite` INT NOT NULL,
+  ` id_shopping_car` INT NOT NULL,
   `creation_date` DATE NULL,
   `creation_user` VARCHAR(45) NULL,
   `last_update_date` DATE NULL,
@@ -16,6 +17,11 @@ CREATE TABLE `per`.`product` (
   CONSTRAINT `fk_product_photo`
     FOREIGN KEY (` id_product_photo`)
     REFERENCES `per`.`product_photo` (`id_product_photo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+CONSTRAINT `fk_product_shopping_car`
+    FOREIGN KEY (` id_product_shopping_car`)
+    REFERENCES `per`.`shopping_car` (`id_shopping_car`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_favorite`
