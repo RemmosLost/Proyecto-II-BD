@@ -1,5 +1,5 @@
 CREATE TABLE `per`.`person` (
-  `id_person` INT NOT NULL AUTO_INCREMENT,
+  `id_person` INT NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `middle_name` VARCHAR(45) NOT NULL,
   `first_surname` VARCHAR(45) NOT NULL,

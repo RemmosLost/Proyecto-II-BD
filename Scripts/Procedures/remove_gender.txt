@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_gender`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_gender` (IN pid_gender INT)
+BEGIN
+	DELETE FROM gender
+    WHERE id_gender = pid_gender;
+    COMMIT;
+END$$
+
+DELIMITER ;

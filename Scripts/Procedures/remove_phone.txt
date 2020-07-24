@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_phone`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `remove_phone`(pid_phone_number INT)
+BEGIN
+	DELETE FROM phone_number
+    WHERE id_phone_number = pid_phone_number;
+    COMMIT;
+END$$
+
+DELIMITER ;

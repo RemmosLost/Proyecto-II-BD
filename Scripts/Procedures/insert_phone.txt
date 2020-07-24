@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_phone`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_phone` (pnumber INT, pid_person INT)
+BEGIN
+    INSERT INTO phone_number(number, id_person)
+    VALUES (pnumber, pid_person);
+    COMMIT;
+END$$
+
+DELIMITER ;
