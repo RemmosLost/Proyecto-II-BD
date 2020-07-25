@@ -1,0 +1,11 @@
+ALTER TABLE `per`.`productxtype_shipping` 
+ADD CONSTRAINT `fk_pxtype_shipping_product`
+  FOREIGN KEY (`id_product`)
+  REFERENCES `per`.`product` (`id_product`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_pxtype_shipping_type_shipping`
+  FOREIGN KEY (`id_type_shipping`)
+  REFERENCES `per`.`type_shipping` (`id_shipping`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
