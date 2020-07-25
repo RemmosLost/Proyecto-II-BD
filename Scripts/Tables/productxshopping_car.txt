@@ -1,0 +1,45 @@
+CREATE TABLE `per`.`productxshopping_car` (
+  `id_produc` INT NOT NULL,
+  `id_shopping_car` INT NOT NULL,
+  `creation_date` DATE NULL,
+  `creation_user` VARCHAR(45) NULL,
+  `last_update_date` DATE NULL,
+  `last_update_user` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_produc`, `id_shopping_car`),
+  UNIQUE INDEX `id_produc_UNIQUE` (`id_produc` ASC) VISIBLE,
+  UNIQUE INDEX `id_shopping_car_UNIQUE` (`id_shopping_car` ASC) VISIBLE,
+  CONSTRAINT `fk_pxs_product`
+    FOREIGN KEY (`id_produc`)
+    REFERENCES `per`.`product` (`id_product`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pxs_shopping_car`
+    FOREIGN KEY (`id_shopping_car`)
+    REFERENCES `per`.`shopping_car` (`id_shopping_car`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores product and shopping_car information. (NXN relation)';
+DROP TRIGGER IF EXISTS `per`.`productXshopping_car_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`productXshopping_car_BEFORE_INSERT` BEFORE INSERT ON `productXshopping_car` FOR EACH ROW
+BEGIN
+IF NEW.creation_date IS NULL OR NEW.creation_user IS NULL THEN 
+        SET NEW.creation_date = CURDATE();
+        SET NEW.creation_user = SYSTEM_USER();
+    END IF;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `per`.`productXshopping_car_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `per`.`productXshopping_car_BEFORE_UPDATE` BEFORE UPDATE ON `productXshopping_car` FOR EACH ROW
+BEGIN
+IF NEW.last_update_date IS NULL OR NEW.last_update_user IS NULL THEN
+        SET NEW.last_update_date = CURDATE();
+        SET NEW.last_update_user = SYSTEM_USER();
+END IF;
+END$$
+DELIMITER ;
