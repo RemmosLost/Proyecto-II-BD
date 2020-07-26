@@ -1,0 +1,17 @@
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `Amountbygender` AS
+    SELECT 
+        `gender`.`name` AS `gender`,
+        SUM(`product`.`price`) AS `Total amount`
+    FROM
+        ((((((`purchase`
+        JOIN `shopping_car` ON ((`purchase`.`id_shopping_car` = `shopping_car`.`id_shopping_car`)))
+        JOIN `productxshopping_car` ON ((`purchase`.`id_shopping_car` = `productxshopping_car`.`id_shopping_car`)))
+        JOIN `product` ON ((`productxshopping_car`.`id_product` = `product`.`id_product`)))
+        JOIN `user` ON ((`product`.`username` = `user`.`username`)))
+        JOIN `person` ON ((`user`.`id_person` = `person`.`id_person`)))
+        JOIN `gender` ON ((`person`.`id_gender` = `gender`.`id_gender`)))
+    GROUP BY `gender`.`name`
