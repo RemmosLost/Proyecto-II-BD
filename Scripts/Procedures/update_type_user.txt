@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_type_user`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_type_user`(IN pid_type_user INT, IN pname varchar(45))
+BEGIN
+UPDATE type_user
+    SET name = pname
+    Where id_type_user = pid_type_user;
+    COMMIT;
+END$$
+
+DELIMITER ;

@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_country`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_country`(IN pname VARCHAR (45))
+BEGIN
+INSERT INTO country(name)
+    values (pname);
+    COMMIT;
+END$$
+
+DELIMITER ;

@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_type_user`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_type_user` (IN pid_type_user INT)
+BEGIN
+	DELETE FROM type_user
+    WHERE id_type_user = pid_type_user;
+    COMMIT;
+END$$
+
+DELIMITER ;

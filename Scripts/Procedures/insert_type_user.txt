@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_type_user`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_type_user` (IN pname VARCHAR(45))
+BEGIN
+	INSERT INTO type_user(name)
+    values (pname);
+    COMMIT;
+END$$
+
+DELIMITER ;
+

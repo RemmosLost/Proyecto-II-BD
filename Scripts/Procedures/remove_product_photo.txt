@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_product_photo`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_product_photo`(IN pid_product_photo INT)
+BEGIN
+	DELETE FROM product_photo
+    WHERE id_product_photo = pid_product_photo;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

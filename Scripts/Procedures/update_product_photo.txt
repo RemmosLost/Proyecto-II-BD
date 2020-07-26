@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_product_photo`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_product_photo`(IN pid_product_photo INT, IN pphotograph mediumblob)
+BEGIN
+	UPDATE product_photo
+    SET photograph = pphotograph
+    Where id_product_photo = pid_product_photo;
+END$$
+
+DELIMITER ;
+

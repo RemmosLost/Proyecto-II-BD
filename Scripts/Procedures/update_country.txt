@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_country`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_country` (IN pid_country INT, IN pname VARCHAR(45))
+BEGIN
+	UPDATE country
+    SET name = pname
+    Where id_country = pid_country;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_country`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_country`(IN pid_country INT)
+BEGIN
+DELETE FROM country
+    WHERE id_country = pid_country;
+    COMMIT;
+END$$
+
+DELIMITER ;

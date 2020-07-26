@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_photo`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_photo` (IN pphotograph mediumblob)
+BEGIN
+	INSERT INTO photo(photograph)
+    values (pphotograph);
+    COMMIT;
+END$$
+
+DELIMITER ;
