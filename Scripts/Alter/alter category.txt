@@ -1,0 +1,15 @@
+ALTER TABLE `per`.`catergory` 
+DROP FOREIGN KEY `fk_category_product`;
+ALTER TABLE `per`.`catergory` 
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`id_product`);
+;
+ALTER TABLE `per`.`catergory` 
+ADD CONSTRAINT `fk_category_product`
+FOREIGN KEY (`id_product`)
+REFERENCES `per`.`product` (`id_product`);
+
+ALTER TABLE `per`.`catergory` 
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`id_catergory`);
+;
