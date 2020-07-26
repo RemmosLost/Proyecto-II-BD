@@ -1,0 +1,22 @@
+-- Se ejecuta para validar si los datos que se utilizan para iniciar sesion con un usario son correctos,
+-- funciona en conjunto con el procedimiento"isValidUser"
+USE `per`;
+DROP function IF EXISTS `isValidUser`;
+
+DELIMITER $$
+USE `per`$$
+CREATE FUNCTION `isValidUser` (pcUsername   VARCHAR(4000), pcPassword   VARCHAR(4000))
+RETURNS INT
+DETERMINISTIC
+  BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN
+      RETURN 0;
+    END;
+    CALL isValidUser(pcUsername, pcPassword);
+    RETURN 1;
+RETURN 1;
+END$$
+
+DELIMITER ;
+
+

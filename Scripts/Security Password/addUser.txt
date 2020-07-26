@@ -1,0 +1,19 @@
+-- Se ejecuta cuando se desea agregar un nuevo usuario
+USE `per`;
+DROP procedure IF EXISTS `passwordSecurity_addUser`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `passwordSecurity_addUser` (IN pcUsername   VARCHAR(4000), IN pcPassword   VARCHAR(4000))
+BEGIN
+    INSERT INTO user (username, password)
+    VALUES (
+      pcUsername,
+      passwordSecurity_Encrypt(pcUsername, pcPassword)
+    );
+    COMMIT;
+  END;$$
+
+DELIMITER ;
+
+

@@ -1,0 +1,23 @@
+-- Se ejecuta para validar si los datos que se utilizan para iniciar sesion con un usario son correctos,
+-- funciona en conjunto con la funcion "isValidUser"
+USE `per`;
+DROP procedure IF EXISTS `passwordSecurity_isValidUser`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `passwordSecurity_isValidUser` (IN pcUsername   VARCHAR(4000), IN pcPassword   VARCHAR(4000))
+BEGIN
+    DECLARE v_dummy  VARCHAR(1);
+   
+    DECLARE EXIT HANDLER FOR NOT FOUND BEGIN
+      SELECT('Username not found');
+    END;
+    SELECT '1'
+    INTO   v_dummy
+    FROM   user
+    WHERE  username = pcUsername
+    AND    password = passwordSecurity_Encrypt(pcUsername, pcPassword);
+END;$$
+
+DELIMITER ;
+
