@@ -1,0 +1,16 @@
+
+USE `per`;
+DROP procedure IF EXISTS `per`.`update_person_first_surname`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_person_photo`(IN pid_person INT, IN pid_photo INT)
+BEGIN
+	UPDATE person
+    SET id_photo = pid_photo
+    Where id_person = pid_person;
+    COMMIT;
+END$$
+
+DELIMITER ;
+;

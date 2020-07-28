@@ -1,0 +1,10 @@
+ALTER TABLE `per`.`person` 
+ADD COLUMN `id_purchase_history` INT NOT NULL AFTER `id_distric`,
+ADD INDEX `fk_person_purchase_history _idx` (`id_purchase_history` ASC) VISIBLE;
+;
+ALTER TABLE `per`.`person` 
+ADD CONSTRAINT `fk_person_purchase_history `
+  FOREIGN KEY (`id_purchase_history`)
+  REFERENCES `per`.`purchase` (`id_purchase`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

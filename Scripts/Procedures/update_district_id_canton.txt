@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_district_id_canton`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_district_id_canton`(IN pid_district INT, IN pid_canton INT)
+BEGIN
+	UPDATE district
+    SET id_canton = pid_canton
+    Where id_district = pid_district;
+    COMMIT;
+END$$
+
+DELIMITER ;

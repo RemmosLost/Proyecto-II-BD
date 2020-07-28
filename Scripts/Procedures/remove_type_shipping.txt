@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_type_shipping`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `remove_type_shipping`(IN pid_type_shipping INT)
+BEGIN
+	DELETE FROM type_shipping
+    WHERE id_type_shipping = pid_type_shipping;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;
+

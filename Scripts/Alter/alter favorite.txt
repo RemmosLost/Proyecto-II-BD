@@ -1,0 +1,2 @@
+ALTER TABLE `per`.`favorite` 
+ADD COLUMN `date` DATE NOT NULL AFTER `last_update_user`;

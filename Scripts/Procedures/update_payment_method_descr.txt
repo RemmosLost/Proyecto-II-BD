@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_payment_method_descr`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_payment_method_descr`(IN pid_payment_method INT, IN pdescription VARCHAR(45))
+BEGIN
+	UPDATE payment_method
+    SET description  = pdescription 
+    Where id_payment_method = pid_payment_method;
+    COMMIT;
+END;$$
+
+DELIMITER ;

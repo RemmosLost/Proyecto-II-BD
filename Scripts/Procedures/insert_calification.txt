@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_calification`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_calification` (IN ptotal INT, IN ptype VARCHAR(45), IN pusername VARCHAR(45))
+BEGIN
+	INSERT INTO calification(total, type, username)
+    values (ptotal, ptype, pusername);
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

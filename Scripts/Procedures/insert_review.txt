@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_review`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_review`(IN pbuyer_comments VARCHAR(45), IN pseller_comments VARCHAR(45), IN pproduct_calification INT, IN pseller_calification INT, IN pbuyer_calification INT, IN pid_purchase INT)
+BEGIN
+	INSERT INTO gender(buyer_comments, seller_comments, product_calification, seller_calification, buyer_calification, id_purchase)
+    values (pbuyer_comments, pseller_comments, pproduct_calification, pseller_calification, pbuyer_calification, pid_purchase);
+    COMMIT;
+END$$
+
+DELIMITER ;

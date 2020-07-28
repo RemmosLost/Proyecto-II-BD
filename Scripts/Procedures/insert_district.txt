@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_district`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_district` (IN pname VARCHAR(45), IN pid_canton INT)
+BEGIN
+	INSERT INTO gender(name, id_canton)
+    values (pname, pid_canton);
+    COMMIT;
+END$$
+
+DELIMITER ;
+

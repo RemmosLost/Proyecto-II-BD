@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_type_shipping_description`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_type_shipping_description`(IN pid_gender INT, IN pdescription VARCHAR(45))
+BEGIN
+	UPDATE type_shipping
+    SET description = pdescription
+    Where id_type_shipping = pid_type_shipping;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

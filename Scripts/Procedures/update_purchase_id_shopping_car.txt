@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_purchase_id_shopping_car`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_purchase_id_shopping_car`(IN pid_purchase INT, IN pid_shopping_car INT)
+BEGIN
+	UPDATE purchase
+    SET id_shopping_car = pid_shopping_car
+    Where id_purchase = pid_purchase;
+    COMMIT;
+END$$
+
+DELIMITER ;

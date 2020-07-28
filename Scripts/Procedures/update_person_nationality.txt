@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_person_nationality`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_person_nationality` (IN pid_person INT, IN pid_nationality INT)
+BEGIN
+	UPDATE person
+    SET id_nationality = id_nationality
+    Where id_person = pid_person;
+    COMMIT;
+END$$
+
+DELIMITER ;

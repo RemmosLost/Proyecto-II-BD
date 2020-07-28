@@ -1,0 +1,2 @@
+ALTER TABLE `per`.`shopping_car` 
+ADD COLUMN `date` DATE NOT NULL AFTER `last_update_user`;

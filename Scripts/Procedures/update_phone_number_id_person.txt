@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_phone_number_id_person`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_phone_number_id_person`(pid_phone_number INT, pid_person INT)
+BEGIN
+	UPDATE phone_number
+    SET id_person = pid_person
+    Where id_phone_number = pid_phone_number;
+    COMMIT;
+END$$
+
+DELIMITER ;

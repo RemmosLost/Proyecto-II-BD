@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_purchase`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_purchase` (IN ppurchase_date date, IN pid_payment INT, IN pid_shopping_car INT)
+BEGIN
+	INSERT INTO purchase(purchase_date, id_payment, id_shopping_car)
+    values (ppurchase_date, pid_payment, pid_shopping_car);
+    COMMIT;
+END$$
+
+DELIMITER ;

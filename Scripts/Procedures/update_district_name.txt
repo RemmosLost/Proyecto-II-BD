@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_district_name`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_district_name` (IN pid_district INT, IN pname VARCHAR(45))
+BEGIN
+	UPDATE district
+    SET name = pname
+    Where id_district = pid_district;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

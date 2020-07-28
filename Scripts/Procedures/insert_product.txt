@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_product`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_product`(IN pname VARCHAR(45), IN pprice INT,IN pdescription VARCHAR(45), IN pid_product_photo INT, IN pid_favorite INT, IN pid_shopping_car INT, IN pusername VARCHAR(45))
+BEGIN
+	INSERT INTO product(name, price, description, id_product_photo, id_favorite, id_shopping_car, pusername)
+    values (pname, pprice, pdescription, pid_product_photo, pid_favorite,  pid_shopping_car, pusername);
+    COMMIT;
+END$$
+
+DELIMITER ;

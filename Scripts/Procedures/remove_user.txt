@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_user`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_user` (IN username varchar(45))
+BEGIN
+	DELETE FROM user
+    WHERE username = pusername;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

@@ -1,0 +1,17 @@
+USE `per`;
+DROP procedure IF EXISTS `update_person_middle_name`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_person_middle_name`(IN pid_person INT, IN pmiddle_name DATE)
+BEGIN
+	UPDATE person
+    SET middle_name = pmiddle_name
+    Where id_person = pid_person;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+
+

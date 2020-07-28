@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_category`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_category`(IN pid_category INT, IN pname VARCHAR(45))
+BEGIN
+	UPDATE category
+    SET name = pname
+    Where id_category = pid_category;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

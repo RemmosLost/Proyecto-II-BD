@@ -1,0 +1,16 @@
+USE `per`;
+DROP procedure IF EXISTS `update_calification_total`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_calification_total` (IN pid_calification INT, IN ptotal INT)
+BEGIN
+	UPDATE calification
+    SET total = ptotal
+    Where id_calification = pid_calification;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

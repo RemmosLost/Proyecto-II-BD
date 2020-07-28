@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_purchase_date`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_purchase_date` (IN pid_purchase INT, IN ppurchase_date date)
+BEGIN
+	UPDATE purchase
+    SET purchase_date = ppurchase_date
+    Where id_purchase = pid_purchase;
+    COMMIT;
+END$$
+
+DELIMITER ;

@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_calification`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_calification` (IN pid_calification INT)
+BEGIN
+	DELETE FROM calification
+    WHERE id_calification = pid_calification;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

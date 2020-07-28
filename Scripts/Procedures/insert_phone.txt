@@ -1,9 +1,9 @@
 USE `per`;
-DROP procedure IF EXISTS `insert_phone`;
+DROP procedure IF EXISTS `insert_phone_number`;
 
 DELIMITER $$
 USE `per`$$
-CREATE PROCEDURE `insert_phone` (pnumber INT, pid_person INT)
+CREATE PROCEDURE `insert_phone_number` (pnumber INT, pid_person INT)
 BEGIN
     INSERT INTO phone_number(number, id_person)
     VALUES (pnumber, pid_person);

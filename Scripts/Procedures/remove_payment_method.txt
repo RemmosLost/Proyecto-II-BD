@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_payment_method`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `remove_payment_method`(IN pid_payment_method INT)
+BEGIN
+	DELETE FROM payment_method
+    WHERE id_payment_method = pid_payment_method;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_category`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_category`(IN pid_category INT)
+BEGIN
+	DELETE FROM category
+    WHERE id_category = pid_category;
+    COMMIT;
+END$$
+
+DELIMITER ;

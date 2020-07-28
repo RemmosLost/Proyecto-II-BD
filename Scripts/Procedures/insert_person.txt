@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_person`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_person` (IN pid_person INT, IN pemail VARCHAR(45), IN pbirth_of_date date, IN pfirst_name VARCHAR(45), IN pmiddle_name VARCHAR(45), IN pfirst_surname VARCHAR(45), IN psecond_surname  VARCHAR(45), IN pdirection VARCHAR(45), IN pid_nationality INT, IN pid_gender INT, IN pid_photo INT, IN pid_purchase_history INT, IN pid_district INT)
+BEGIN
+	INSERT INTO person(id_person, email, birth_of_date, first_name, middle_name, first_surname, second_surname, direction, id_nationality, id_gender, id_photo, id_purchase_history, id_district)
+    values (pid_person, pemail, pbirth_of_date, pfirst_name, pmiddle_name, pfirst_surname, psecond_surname, pdirection, pid_nationality, pid_gender, pid_photo, pid_purchase_history, pid_district);
+    COMMIT;
+END$$
+
+DELIMITER ;

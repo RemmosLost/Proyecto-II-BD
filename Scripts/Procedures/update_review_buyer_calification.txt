@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_review_buyer_calification`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_review_buyer_calification`(IN pid_review INT, IN pbuyer_calification INT)
+BEGIN
+	UPDATE review
+    SET buyer_calification = pbuyer_calification
+    Where id_review = pid_review;
+    COMMIT;
+END$$
+
+DELIMITER ;

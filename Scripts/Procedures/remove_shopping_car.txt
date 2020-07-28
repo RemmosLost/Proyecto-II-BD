@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_shopping_car`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_shopping_car` (IN pid_shopping_car INT)
+BEGIN
+	DELETE FROM shopping_car
+    WHERE id_shopping_car = pid_shopping_car;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

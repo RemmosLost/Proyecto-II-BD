@@ -1,0 +1,16 @@
+USE `per`;
+DROP procedure IF EXISTS `update_user_username`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_user_username`(IN pusernameOriginal VARCHAR(45), IN pusernameNew VARCHAR(45))
+BEGIN
+	UPDATE user
+    SET username = pusernameNew
+    Where username  = pusernameOriginal;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

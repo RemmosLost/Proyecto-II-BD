@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_payment_method`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_payment_method`(IN pname VARCHAR(45), IN pdescription VARCHAR(45))
+BEGIN
+	INSERT INTO payment_method(name, description)
+    values (pname, Pdescription);
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

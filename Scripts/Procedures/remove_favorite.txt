@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_favorite`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `remove_favorite`(IN pid_favorite INT)
+BEGIN
+	DELETE FROM favorite
+    WHERE id_favorite = pid_favorite;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

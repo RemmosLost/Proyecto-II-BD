@@ -1,0 +1,17 @@
+USE `per`;
+DROP procedure IF EXISTS `update_person_birth_of_date`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_person_birth_of_date`(IN pid_person INT, IN pbirth_of_date DATE)
+BEGIN
+	UPDATE person
+    SET birth_of_date = pbirth_of_date
+    Where id_person = pid_person;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+
+

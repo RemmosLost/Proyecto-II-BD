@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_person`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_person` (IN pid_person INT)
+BEGIN
+	DELETE FROM person
+    WHERE id_person = pid_person;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

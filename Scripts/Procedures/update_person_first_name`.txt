@@ -1,0 +1,16 @@
+USE `per`;
+DROP procedure IF EXISTS `update_person_first_name`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_person_first_name`(IN pid_person INT, IN pfirst_name VARCHAR(45))
+BEGIN
+	UPDATE person
+    SET first_name = pfirst_name
+    Where id_person = pid_person;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

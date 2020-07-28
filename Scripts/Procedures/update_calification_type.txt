@@ -1,0 +1,17 @@
+USE `per`;
+DROP procedure IF EXISTS `update_calification_type`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_calification_type` (IN pid_calification INT, IN ptype VARCHAR(45))
+BEGIN
+	UPDATE calification
+    SET type = ptype
+    Where id_calification = pid_calification;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+
+

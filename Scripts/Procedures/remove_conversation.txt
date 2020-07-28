@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_conversation`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_conversation` (IN pid_conversation INT)
+BEGIN
+	DELETE FROM conversation
+    WHERE id_conversation = pid_conversation;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

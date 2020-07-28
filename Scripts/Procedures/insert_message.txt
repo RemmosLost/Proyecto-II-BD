@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_message`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_message`(IN ptext VARCHAR(250), IN pid_user_recieve VARCHAR(45), IN pid_user_send VARCHAR(45), IN pid_conversation INT)
+BEGIN
+	INSERT INTO gender(text, id_user_recieve, id_user_send, id_conversation)
+    values (ptext, pid_user_recieve, pid_user_send, pid_conversation);
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

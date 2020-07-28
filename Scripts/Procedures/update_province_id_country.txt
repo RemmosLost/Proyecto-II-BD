@@ -1,0 +1,16 @@
+USE `per`;
+DROP procedure IF EXISTS `update_province_id_country`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_province_id_country`(IN pid_province INT, IN pid_country int)
+BEGIN
+	UPDATE province
+    SET id_country = pid_country
+    Where id_province = pid_province;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+

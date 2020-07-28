@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_calification_username`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_calification_username` (IN pid_calification INT, IN pusername VARCHAR(45))
+BEGIN
+	UPDATE calification
+    SET username = pusername
+    Where id_calification = pid_calification;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

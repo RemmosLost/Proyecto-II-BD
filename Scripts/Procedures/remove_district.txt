@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_district`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_district` (IN pid_district INT)
+BEGIN
+	DELETE FROM district
+    WHERE id_district = pid_district;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_type_shipping`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_type_shipping`(IN pname VARCHAR(45), IN pdescription VARCHAR(45))
+BEGIN
+	INSERT INTO type_shipping(name, description)
+    values (pname, pdescription);
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

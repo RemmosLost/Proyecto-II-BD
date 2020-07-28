@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_parameter`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_parameter` (IN pid_parameter INT)
+BEGIN
+	DELETE FROM parameter
+    WHERE id_parameter = pid_parameter;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

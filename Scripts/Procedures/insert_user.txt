@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_user`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_user` (IN pusername VARCHAR(45), IN ppassword VARCHAR(100), IN pid_person INT, IN pid_type_user INT)
+BEGIN
+	INSERT INTO user(username, password, id_person, id_type_user)
+    values (pusername, ppassword, pid_person, pid_type_user);
+    COMMIT;
+END$$
+
+DELIMITER ;
+

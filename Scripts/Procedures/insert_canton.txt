@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_canton`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_canton` (IN pname VARCHAR(45), IN pid_province INT)
+BEGIN
+	INSERT INTO canton(name, id_province)
+    values (pname, pid_province);
+    COMMIT;
+END$$
+
+DELIMITER ;

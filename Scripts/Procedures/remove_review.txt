@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_review`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_review` (IN pid_review INT)
+BEGIN
+	DELETE FROM review
+    WHERE id_review = pid_review;
+    COMMIT;
+END$$
+
+DELIMITER ;

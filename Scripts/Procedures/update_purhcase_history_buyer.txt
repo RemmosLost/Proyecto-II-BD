@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_purhcase_history_buyer`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_purhcase_history_buyer`(IN pid_purhcase_history INT, IN pbuyer INT)
+BEGIN
+	UPDATE purhcase_history
+    SET buyer = pbuyer
+    Where id_purhcase_history = pid_purhcase_history;
+    COMMIT;
+END$$
+
+DELIMITER ;

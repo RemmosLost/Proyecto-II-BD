@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_shopping_car_date`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_shopping_car_date` (IN pid_shopping_car INT, IN pdate date)
+BEGIN
+	UPDATE shopping_car
+    SET date= pdate
+    Where id_shopping_car = pid_shopping_car;
+    COMMIT;
+END$$
+
+DELIMITER ;

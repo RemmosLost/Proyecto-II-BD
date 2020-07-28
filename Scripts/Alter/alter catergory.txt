@@ -1,0 +1,8 @@
+ALTER TABLE `per`.`catergory` 
+DROP FOREIGN KEY `fk_category_product`;
+ALTER TABLE `per`.`catergory` 
+DROP COLUMN `id_product`,
+DROP PRIMARY KEY;
+ALTER TABLE `per`.`catergory` 
+ADD PRIMARY KEY (`id_catergory`);
+;

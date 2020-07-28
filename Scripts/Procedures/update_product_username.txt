@@ -1,0 +1,16 @@
+USE `per`;
+DROP procedure IF EXISTS `update_product_username`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_product_username`(IN pid_product INT, IN pusernamer VARCHAR(45))
+BEGIN
+	UPDATE product
+    SET username = pusername
+    Where id_product = pid_product;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;
+

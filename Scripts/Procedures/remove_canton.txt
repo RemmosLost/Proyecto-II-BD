@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_canton`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_canton` (IN pid_canton INT)
+BEGIN
+	DELETE FROM canton
+    WHERE id_canton = pid_canton;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

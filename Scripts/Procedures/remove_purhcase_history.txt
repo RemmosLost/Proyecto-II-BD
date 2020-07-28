@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_purhcase_history`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_purhcase_history` (IN pid_purhcase_history INT)
+BEGIN
+	DELETE FROM purhcase_history
+    WHERE id_purhcase_history = pid_purhcase_history;
+    COMMIT;
+END$$
+
+DELIMITER ;

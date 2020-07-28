@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_message_id_conversation`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_message_id_conversation`(IN pid_message INT, IN pid_conversation INT)
+BEGIN
+	UPDATE message
+    SET id_conversation= pid_conversation
+    Where id_message = pid_message;
+    COMMIT;
+END$$
+
+DELIMITER ;

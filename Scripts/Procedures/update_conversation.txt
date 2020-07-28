@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_conversation`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_conversation` (IN pid_conversation INT, IN pdate DATE)
+BEGIN
+	UPDATE conversation
+    SET date = pdate
+    Where id_conversation = pid_conversation;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

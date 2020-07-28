@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_payment_method_name`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_payment_method_name`(IN pid_payment_method INT, IN pname VARCHAR(45))
+BEGIN
+	UPDATE payment_method
+    SET name = pname
+    Where id_payment_method = pid_payment_method;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

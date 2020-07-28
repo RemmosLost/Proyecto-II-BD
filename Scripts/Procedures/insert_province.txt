@@ -1,0 +1,16 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_province`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_province` (IN pname VARCHAR(45), IN pid_country INT)
+BEGIN
+	INSERT INTO province(name, id_country)
+    values (pname, pid_country);
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+
+

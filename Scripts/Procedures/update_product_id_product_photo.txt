@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_product_id_product_photo`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_product_id_product_photo`(IN pid_product INT, IN pid_product_photo INT)
+BEGIN
+	UPDATE product
+    SET id_product_photo = pid_product_photo
+    Where id_product = pid_product;
+    COMMIT;
+END$$
+
+DELIMITER ;

@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_person_email`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_person_email` (IN pid_person INT, IN pemail VARCHAR(45))
+BEGIN
+	UPDATE person
+    SET email = pemail
+    Where id_person = pid_person;
+    COMMIT;
+END$$
+
+DELIMITER ;
+

@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `per`.`update_phone_number_number`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_phone_number_number`(pid_phone_number INT, pnumber INT)
+BEGIN
+	UPDATE phone_number
+    SET number = pnumber
+    Where id_phone_number = pid_phone_number;
+    COMMIT;
+END$$
+
+DELIMITER ;
+;

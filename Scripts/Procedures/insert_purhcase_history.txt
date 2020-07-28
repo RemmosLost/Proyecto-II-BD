@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_purhcase_history`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_purhcase_history` (IN pid_purhcase INT, IN pbuyer varchar(45))
+BEGIN
+	INSERT INTO purhcase_historyp(id_purhcase, buyer)
+    values (pid_purhcase, pbuyer);
+    COMMIT;
+END$$
+
+DELIMITER ;

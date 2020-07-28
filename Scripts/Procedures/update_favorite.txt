@@ -1,0 +1,15 @@
+USE `per`;
+DROP procedure IF EXISTS `update_favorite`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_favorite`(IN pid_favorite INT, IN pdate DATE)
+BEGIN
+	UPDATE favorite
+    SET name = pdate
+    Where id_favorite = pid_favorite;
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

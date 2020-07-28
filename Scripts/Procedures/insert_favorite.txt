@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_favorite`;
+
+DELIMITER $$
+USE `per`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_favorite`(IN pdate date)
+BEGIN
+	INSERT INTO favorite(date)
+    values (pdate);
+    COMMIT;
+    
+END$$
+
+DELIMITER ;

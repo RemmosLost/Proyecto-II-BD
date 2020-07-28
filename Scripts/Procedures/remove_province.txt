@@ -1,0 +1,18 @@
+USE `per`;
+DROP procedure IF EXISTS `remove_province`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `remove_province` (IN pid_province INT)
+BEGIN
+	DELETE FROM province
+    WHERE id_province = pid_province;
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+
+
+
+

@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `update_parameter`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `update_parameter` (IN pid_parameter INT, IN pvalue INT)
+BEGIN
+	UPDATE parameter
+    SET value = pvalue
+    Where id_parameter = pid_parameter;
+    COMMIT;
+END$$
+
+DELIMITER ;

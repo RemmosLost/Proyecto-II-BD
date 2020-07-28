@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_shopping_car`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_shopping_car` (IN pdate date, IN pid_user VARCHAR(45))
+BEGIN
+	INSERT INTO shopping_car(date, id_user )
+    values (pdate, pid_user );
+    COMMIT;
+END$$
+
+DELIMITER ;
+
