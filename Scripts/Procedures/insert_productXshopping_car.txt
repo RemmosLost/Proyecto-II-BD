@@ -1,0 +1,14 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_productXshopping_car`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_productXshopping_car`(IN pid_product INT, IN pid_shopping_car INT)
+BEGIN
+	INSERT INTO productXshopping_car(id_product, id_shopping_car)
+    values (pid_product, pid_shopping_car);
+    COMMIT;
+END$$
+
+DELIMITER ;
+

@@ -1,0 +1,13 @@
+USE `per`;
+DROP procedure IF EXISTS `insert_productXcategory`;
+
+DELIMITER $$
+USE `per`$$
+CREATE PROCEDURE `insert_productXcategory`(IN pid_product INT, IN pid_category INT)
+BEGIN
+	INSERT INTO productXcategory(id_product, id_category)
+    values (pid_product, pid_category);
+    COMMIT;
+END$$
+
+DELIMITER ;
