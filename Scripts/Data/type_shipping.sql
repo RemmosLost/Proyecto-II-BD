@@ -1,0 +1,2 @@
+insert into type_shipping(name, description) values('courier', 'the product is sent by a convenience courier for the seller');
+insert into type_shipping(name, description) values('correos de costa rica', 'the product is sent by correos de costa rica company');

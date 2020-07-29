@@ -1,0 +1,2 @@
+insert into payment_method(name, description) values('cash', 'payment is made in person and in cash upon receipt of the product');
+insert into payment_method(name, description) values('credit card', 'payment is made virtually by entering your card details');
