@@ -1,0 +1,7 @@
+insert into Province(name, id_country) values('Alajuela', 41);
+insert into Province(name, id_country) values('Cartago', 41);
+insert into Province(name, id_country) values('Guanacaste', 41);
+insert into Province(name, id_country) values('Heredia', 41);
+insert into Province(name, id_country) values('Limón', 41);
+insert into Province(name, id_country) values('Puntarenas', 41);
+insert into Province(name, id_country) values('San José', 41);
