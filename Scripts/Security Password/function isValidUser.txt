@@ -1,4 +1,9 @@
 -- Se ejecuta para validar si los datos que se utilizan para iniciar sesion con un usario son correctos
+USE `per`;
+DROP function IF EXISTS `isValidUser`;
+
+DELIMITER $$
+USE `per`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `isValidUser`(pcUsername   VARCHAR(4000), pcPassword   VARCHAR(4000)) RETURNS int
     DETERMINISTIC
 BEGIN
@@ -13,6 +18,9 @@ BEGIN
     WHERE  username = pcUsername
     AND    password = passwordSecurity_Encrypt(pcUsername, pcPassword);
     RETURN 1;
-END
+END$$
+
+DELIMITER ;
+
 
 
